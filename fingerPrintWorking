@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var GetCustomDomName = '127.0.0.1';
+            var GetPIString = '';
+            var GetPAString = '';
+            var GetPFAString = '';
+            var DemoFinalString = '';
+            var select = '';
+            select += '<option val=0>Select</option>';
+            for (let i = 1; i <= 100; i++) {
+                select += '<option val=' + i + '>' + i + '</option>';
+            }
+
+            var finalUrl = "";
+            var MethodInfo = "";
+            var MethodCapture = "";
+            var OldPort = false;
+
+            function Demo() {
+
+                var GetPIStringstr = '';
+                var GetPAStringstr = '';
+                var GetPFAStringstr = '';
+
+                if (GetPI() === true) {
+                    GetPIStringstr = '<Pi ' + GetPIString + ' />';
+                }
+                else {
+                    GetPIString = '';
+                }
+
+                if (GetPA() === true) {
+                    GetPAStringstr = '<Pa ' + GetPAString + ' />';
+                    //alert(GetPAStringstr);
+                }
+                else {
+                    GetPAString = '';
+                }
+
+                if (GetPFA() === true) {
+                    GetPFAStringstr = '<Pfa ' + GetPFAString + ' />';
+                    //alert(GetPFAStringstr);
+                }
+                else {
+                    GetPFAString = '';
+                }
+
+                if (GetPI() === false && GetPA() === false && GetPFA() === false) {
+                    //alert("Fill Data!");
+                    DemoFinalString = '';
+                }
+                else {
+                    DemoFinalString = '<Demo>' + GetPIStringstr + ' ' + GetPAStringstr + ' ' + GetPFAStringstr + ' </Demo>';
+                    //alert(DemoFinalString)
+                }
+
+
+            }
+
+            function GetPA() {
+                var Flag = false;
+                var GetPAString = '';
+
+                if ($("#txtCareOf").val().length > 0) {
+                    Flag = true;
+                    GetPAString += "co=" + "\"" + $("#txtCareOf").val() + "\"";
+                }
+                if ($("#txtLandMark").val().length > 0) {
+                    Flag = true;
+                    GetPAString += " lm=" + "\"" + $("#txtLandMark").val() + "\"";
+                }
+                if ($("#txtLocality").val().length > 0) {
+                    Flag = true;
+                    GetPAString += " loc=" + "\"" + $("#txtLocality").val() + "\"";
+                }
+                if ($("#txtCity").val().length > 0) {
+                    Flag = true;
+                    GetPAString += " vtc=" + "\"" + $("#txtCity").val() + "\"";
+                }
+                if ($("#txtDist").val().length > 0) {
+                    Flag = true;
+                    GetPAString += " dist=" + "\"" + $("#txtDist").val() + "\"";
+                }
+                if ($("#txtPinCode").val().length > 0) {
+                    Flag = true;
+                    GetPAString += " pc=" + "\"" + $("#txtPinCode").val() + "\"";
+                }
+                if ($("#txtBuilding").val().length > 0) {
+                    Flag = true;
+                    GetPAString += " house=" + "\"" + $("#txtBuilding").val() + "\"";
+                }
+                if ($("#txtStreet").val().length > 0) {
+                    Flag = true;
+                    GetPAString += " street=" + "\"" + $("#txtStreet").val() + "\"";
+                }
+                if ($("#txtPOName").val().length > 0) {
+                    Flag = true;
+                    GetPAString += " po=" + "\"" + $("#txtPOName").val() + "\"";
+                }
+                if ($("#txtSubDist").val().length > 0) {
+                    Flag = true;
+                    GetPAString += " subdist=" + "\"" + $("#txtSubDist").val() + "\"";
+                }
+                if ($("#txtState").val().length > 0) {
+                    Flag = true;
+                    GetPAString += " state=" + "\"" + $("#txtState").val() + "\"";
+                }
+                if ($('#rdMatchStrategyPA').is(':checked') && Flag) {
+                    Flag = true;
+                    GetPAString += " ms=" + "\"E\"";
+                }
+                //alert(GetPIString);
+                return Flag;
+            }
+
+            function GetPI() {
+                var Flag = false;
+                GetPIString = '';
+
+                if ($("#txtName").val().length > 0) {
+                    Flag = true;
+                    GetPIString += "name=" + "\"" + $("#txtName").val() + "\"";
+                }
+
+                if ($("#drpMatchValuePI").val() > 0 && Flag) {
+                    Flag = true;
+                    GetPIString += " mv=" + "\"" + $("#drpMatchValuePI").val() + "\"";
+                }
+
+                if ($('#rdExactPI').is(':checked') && Flag) {
+                    Flag = true;
+                    GetPIString += " ms=" + "\"E\"";
+                }
+                else if ($('#rdPartialPI').is(':checked') && Flag) {
+                    Flag = true;
+                    GetPIString += " ms=" + "\"P\"";
+                }
+                else if ($('#rdFuzzyPI').is(':checked') && Flag) {
+                    Flag = true;
+                    GetPIString += " ms=" + "\"F\"";
+                }
+                if ($("#txtLocalNamePI").val().length > 0) {
+                    Flag = true;
+                    GetPIString += " lname=" + "\"" + $("#txtLocalNamePI").val() + "\"";
+                }
+
+                if ($("#txtLocalNamePI").val().length > 0 && $("#drpLocalMatchValuePI").val() > 0) {
+                    Flag = true;
+                    GetPIString += " lmv=" + "\"" + $("#drpLocalMatchValuePI").val() + "\"";
+                }
+
+
+
+                if ($("#drpGender").val() == "MALE") {
+                    Flag = true;
+                    GetPIString += " gender=" + "\"M\"";
+                }
+                else if ($("#drpGender").val() == "FEMALE") {
+                    Flag = true;
+                    GetPIString += " gender=" + "\"F\"";
+                }
+                else if ($("#drpGender").val() == "TRANSGENDER") {
+                    Flag = true;
+                    GetPIString += " gender=" + "\"T\"";
+                }
+                //}
+                if ($("#txtDOB").val().length > 0) {
+                    Flag = true;
+                    GetPIString += " dob=" + "\"" + $("#txtDOB").val() + "\"";
+                }
+
+                if ($("#drpDOBType").val() != "0") {
+                    Flag = true;
+                    GetPIString += " dobt=" + "\"" + $("#drpDOBType").val() + "\"";
+                }
+
+                if ($("#txtAge").val().length) {
+                    Flag = true;
+                    GetPIString += " age=" + "\"" + $("#txtAge").val() + "\"";
+                }
+
+                if ($("#txtPhone").val().length > 0 || $("#txtEmail").val().length > 0) {
+                    Flag = true;
+                    GetPIString += " phone=" + "\"" + $("#txtPhone").val() + "\"";
+                }
+                if ($("#txtEmail").val().length > 0) {
+                    Flag = true;
+                    GetPIString += " email=" + "\"" + $("#txtEmail").val() + "\"";
+                }
+
+                //alert(GetPIString);
+                return Flag;
+            }
+
+            function GetPFA() {
+                var Flag = false;
+                var GetPFAString = '';
+
+                if ($("#txtAddressValue").val().length > 0) {
+                    Flag = true;
+                    GetPFAString += "av=" + "\"" + $("#txtAddressValue").val() + "\"";
+                }
+
+                if ($("#drpMatchValuePFA").val() > 0 && $("#txtAddressValue").val().length > 0) {
+                    Flag = true;
+                    GetPFAString += " mv=" + "\"" + $("#drpMatchValuePFA").val() + "\"";
+                }
+
+                if ($('#rdExactPFA').is(':checked') && Flag) {
+                    Flag = true;
+                    GetPFAString += " ms=" + "\"E\"";
+                }
+                else if ($('#rdPartialPFA').is(':checked') && Flag) {
+                    Flag = true;
+                    GetPFAString += " ms=" + "\"P\"";
+                }
+                else if ($('#rdFuzzyPFA').is(':checked') && Flag) {
+                    Flag = true;
+                    GetPFAString += " ms=" + "\"F\"";
+                }
+
+                if ($("#txtLocalAddress").val().length > 0) {
+                    Flag = true;
+                    GetPFAString += " lav=" + "\"" + $("#txtLocalAddress").val() + "\"";
+                }
+
+                if ($("#drpLocalMatchValue").val() > 0 && $("#txtLocalAddress").val().length > 0) {
+                    Flag = true;
+                    GetPFAString += " lmv=" + "\"" + $("#drpLocalMatchValue").val() + "\"";
+                }
+                //alert(GetPIString);
+                return Flag;
+            }
+
+            function CaptureAvdmFingurePrint() {
+                var strWadh = "";
+                var strOtp = "";
+
+                // Demo();
+
+                // if ($("#txtWadh").val() != "") {
+                //     strWadh = " wadh=\"" + $("#txtWadh").val() + '"';
+                // }
+                // if ($("#txtotp").val() != "") {
+                //     strOtp = " otp=\"" + $("#txtotp").val() + '"';
+                // }
+                let _Fcount = 1;
+                let _Ftype = 0;
+                let _Icount = 0;
+                let _Pcount = 0;
+                let _pgCount = 2;
+                let _Dtype = 0;
+                let _Pidver = '2.0';
+                let _timeout = 10000;
+                let _pTimeout = 10000;
+                let _env = 'P';
+                let _ddlavdm = 11100;
+                let _txtCK = 'mantra';
+
+                var XML = '<?xml version="1.0"?> <PidOptions ver="1.0"> <Opts fCount="' + _Fcount + '" fType="' + _Ftype + '" iCount="' + _Icount + '" pCount="' + _Pcount + '" pgCount="' + _pgCount + '"' + strOtp + ' format="' + _Dtype + '"   pidVer="' + _Pidver + '" timeout="' + _timeout + '" pTimeout="' + _pTimeout + '"' + strWadh + ' posh="UNKNOWN" env="' + _env + '" /> ' + DemoFinalString + '<CustOpts><Param name="mantrakey" value="' + _txtCK + '" /></CustOpts> </PidOptions>';
+                finalUrl = "http://" + GetCustomDomName + ":" + _ddlavdm;
+
+                try {
+                    var protocol = window.location.href;
+                    if (protocol.indexOf("https") >= 0) {
+                        finalUrl = "https://" + GetCustomDomName + ":" + _ddlavdm;
+                    }
+                } catch (e) {
+
+                }
+                var verb = "CAPTURE";
+                var err = "";
+
+                var res;
+                var httpStaus = false;
+                var jsonstr = "";
+                ;
+
+                fetch(finalUrl + MethodCapture, {
+                    method: 'CAPTURE',
+                    headers: {
+                        'Content-Type': 'text/xml; charset=utf-8',
+                    },
+                    body: XML,
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log(data);
+                        httpStaus = true;
+                        res = { httpStaus: httpStaus, data: data };
+                        // $('#txtPidData').val(data);
+                        // $('#txtPidOptions').val(XML);
+
+                        // var $doc = $.parseXML(data);
+                        // var Message = $($doc).find('Resp').attr('errInfo');
+
+                        // alert(Message);
+                    })
+                    .catch((error) => {
+                        alert(error);
+                        res = { httpStaus: httpStaus, err: error };
+                    });
+
+                function getHttpError(jqXHR) {
+                    var err = "Unhandled Exception";
+                    if (jqXHR.status === 0) {
+                        err = 'Service Unavailable';
+                    } else if (jqXHR.status == 404) {
+                        err = 'Requested page not found';
+                    } else if (jqXHR.status == 500) {
+                        err = 'Internal Server Error';
+                    } else if (thrownError === 'parsererror') {
+                        err = 'Requested JSON parse failed';
+                    } else if (thrownError === 'timeout') {
+                        err = 'Time out error';
+                    } else if (thrownError === 'abort') {
+                        err = 'Ajax request aborted';
+                    } else {
+                        err = 'Unhandled Error';
+                    }
+                    return err;
+                }
+
+                return res;
+            }
+            CaptureAvdmFingurePrint();
+    </script>
+</body>
+</html>
